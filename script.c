@@ -39,6 +39,7 @@ void printCongratulation(struct Race race){
 }
 
 // Logic functions section
+
 void delay(int number_of_seconds)
 {
     // Converting time into milli_seconds
@@ -48,8 +49,7 @@ void delay(int number_of_seconds)
     clock_t start_time = clock();
 
     // looping till required time is not achieved
-    while (clock() < start_time + milli_seconds)
-        ;
+    while (clock() < start_time + milli_seconds);
 }
 
 int calculateTimeToCompleteLap(){
