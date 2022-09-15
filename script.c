@@ -61,16 +61,9 @@ void updateFirstPlace(struct Race *race, struct RaceCar *racecar1, struct RaceCa
 void startRace(struct RaceCar *raceCar1, struct RaceCar* raceCar2){
     struct Race race={5,1,"",""};
     for(int i =0; i<race.numberOfLaps;i++){
-        raceCar1->totalLapTime+=calculateTimeToCompleteLap();
-        raceCar2->totalLapTime+=calculateTimeToCompleteLap();
-        if (raceCar1->totalLapTime>raceCar2->totalLapTime){
-            strcpy(race.firstPlaceDriverName,raceCar1->driverName);
-            strcpy(race.firstPlaceRaceCarColor,raceCar1->raceCarColor);
-        }else{
-            strcpy(race.firstPlaceDriverName,raceCar2->driverName);
-            strcpy(race.firstPlaceRaceCarColor,raceCar2->raceCarColor);
-
-        }
+        updateRaceCar(raceCar1);
+        updateRaceCar(raceCar2);
+        updateFirstPlace(&race,raceCar1,raceCar2);
         printFirstPlaceAfterLap(race);
     }
     printCongratulation(race);
