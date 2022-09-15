@@ -26,18 +26,31 @@ void printIntro(){
 void printCountDown(){
     printf("\nCoureurs prets ! Dans...\n");
     for(int i=5;i>0;i--){
+        delay(1);
         printf("%d\n",i);
     }
     printf("Course !\n");
 }
 void printFirstPlaceAfterLap(struct Race race){
-    printf("\nApres le tour numero %d\nLa premiere place est occupee par : %s\ndans la voiture de course %s !\n",race.numberOfLaps,race.firstPlaceDriverName,race.firstPlaceRaceCarColor);
+    printf("\nApres le tour numero %d\nLa premiere place est occupee par : %s\ndans la voiture de course %s !\n",race.currentLap,race.firstPlaceDriverName,race.firstPlaceRaceCarColor);
 }
 void printCongratulation(struct Race race){
-    printf("\nFelicitons tous %s,\ndans la voiture de course %s, pour son incroyable performance.\nC etait vraiment une belle course et bonne nuit a tous !\n",race.firstPlaceDriverName,race.firstPlaceRaceCarColor);
+    printf("\n\tFelicitons tous %s,\n\tdans la voiture de course %s, pour son incroyable performance.\n\tC etait vraiment une belle course et bonne nuit a tous !\n",race.firstPlaceDriverName,race.firstPlaceRaceCarColor);
 }
 
 // Logic functions section
+void delay(int number_of_seconds)
+{
+    // Converting time into milli_seconds
+    int milli_seconds = 1000 * number_of_seconds;
+
+    // Storing start time
+    clock_t start_time = clock();
+
+    // looping till required time is not achieved
+    while (clock() < start_time + milli_seconds)
+        ;
+}
 
 int calculateTimeToCompleteLap(){
     int vitesse=(rand() %3)+1 ,acceleration=(rand() % 3)+1 ,nerves=(rand() % 3)+1 ;
@@ -60,20 +73,23 @@ void updateFirstPlace(struct Race *race, struct RaceCar *racecar1, struct RaceCa
 
 void startRace(struct RaceCar *raceCar1, struct RaceCar* raceCar2){
     struct Race race={5,1,"",""};
-    for(int i =0; i<race.numberOfLaps;i++){
+    for(int i =1; i<=race.numberOfLaps;i++){
+        delay(1);
+        race.currentLap=i;
         updateRaceCar(raceCar1);
         updateRaceCar(raceCar2);
         updateFirstPlace(&race,raceCar1,raceCar2);
         printFirstPlaceAfterLap(race);
     }
+    delay(1);
     printCongratulation(race);
 
 }
 
 int main()
 {
-    struct RaceCar racecar1={"abdelghafour","red",1};
-    struct RaceCar racecar2={"ahmed","black",1};
+    struct RaceCar racecar1={"abdelghafour","red"};
+    struct RaceCar racecar2={"ahmed","black"};
     srand(time(0));
     printIntro();
     printCountDown();
